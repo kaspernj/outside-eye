@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android", "web"],
+  "apple": {
+    "modules": ["OutsideEyeModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.outsideeye.OutsideEyeModule"]
+  }
+}
