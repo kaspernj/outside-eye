@@ -1,7 +1,9 @@
+import React from "react"
+import useContext from "./use-context"
 import {v4 as uuidv4} from "uuid"
 
 export default function usePressOutside(childRef, onPressOutside) {
-  const value = usePressOutsideContext()
+  const value = useContext()
   const id = React.useMemo(() => uuidv4(), [])
 
   if (!value) {

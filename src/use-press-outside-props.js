@@ -1,9 +1,12 @@
-const usePressOutsideProps = (props = {}) => {
+import React from "react"
+import usePressOutsideContext from "./use-press-outside-context.js"
+
+export default function usePressOutsideProps(props = {}) {
   const shared = React.useMemo(() => ({}), [])
   const {onStartShouldSetResponder, ...restProps} = props
 
   shared.onStartShouldSetResponder = onStartShouldSetResponder
-  shared.clickOutsideContext = useClickOutsideContext()
+  shared.clickOutsideContext = usePressOutsideContext()
 
   const actualProps = React.useMemo(() => ({
     onStartShouldSetResponder: (e) => {

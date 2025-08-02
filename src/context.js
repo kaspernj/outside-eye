@@ -1,3 +1,5 @@
-const ClickOutsideContext = React.createContext()
+import React from "react"
 
-export default useClickOutsideContext
+const PressOutsideContext = React.createContext()
+
+export default PressOutsideContext

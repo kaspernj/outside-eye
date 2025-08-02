@@ -1,6 +1,6 @@
 import {Platform} from "react-native"
 
-export default function isPressInsideElement(target, nestedView) => {
+export default function isPressInsideElement(target, nestedView) {
   if (Platform.OS == "web") {
     if (target && nestedView && target.isEqualNode(nestedView)) {
       return true
