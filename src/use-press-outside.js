@@ -1,10 +1,10 @@
 import React from "react"
 import useContext from "./use-press-outside-context"
-import {v4 as uuidv4} from "uuid"
+import UUID from "pure-uuid"
 
 export default function usePressOutside(childRef, onPressOutside) {
   const value = useContext()
-  const id = React.useMemo(() => uuidv4(), [])
+  const id = React.useMemo(() => new UUID(4).format(), [])
 
   if (!value) {
     throw new Error("Not inside click outside context")
@@ -20,4 +20,3 @@ export default function usePressOutside(childRef, onPressOutside) {
     }
   }, [])
 }
-
