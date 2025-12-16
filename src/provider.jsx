@@ -49,6 +49,8 @@ class OutsideEyeProvider extends ShapeComponent {
         if (onStartShouldSetResponder) {
           return onStartShouldSetResponder(event)
         }
+
+        return false
       }
     }), [])
 
