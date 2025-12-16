@@ -36,7 +36,7 @@
     "eslint-config-expo": "~9.2.0",
     "eslint-plugin-jsdoc": "^61.5.0",
     "expo": "~53.0.25",
-    "expo-module-scripts": "^4.1.9",
+    "expo-module-scripts": "^5.0.8",
     "react-native": "0.79.6"
   },
   "peerDependencies": {
