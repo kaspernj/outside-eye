@@ -1,30 +1,45 @@
-import {shapeComponent, ShapeComponent} from "set-state-compare/src/shape-component"
+// @ts-expect-error
+import {shapeComponent, ShapeComponent} from "set-state-compare/src/shape-component.js"
 import isPressInsideElement from "./is-press-inside-element"
 import OutsideEyeContext from "./context.js"
 import React from "react"
 
-const OutsideEyeProvider = React.memo(shapeComponent(class OutsideEyeProvider extends ShapeComponent {
+/**
+ * @typedef {object} ClickOutsideProviderContext
+ * @property {import("./types.js").onStartShouldSetResponderType} onStartShouldSetResponder
+ */
+
+/**
+ * @typedef {{clickOutsideProvider: OutsideEyeProvider, props: ClickOutsideProviderContext}} OutsideEyeContextValueType
+ */
+
+class OutsideEyeProvider extends ShapeComponent {
+  /** @type {function | null} */
   onStartShouldSetResponder = null
+
+  /** @type {Record<string, any>} */
   registered = {}
 
   render() {
+    // @ts-expect-error
     const {children, ...restProps} = this.props
     const restPropsKeys = Object.keys(restProps)
 
-    if (restPropsKeys.lengt > 0) {
+    if (restPropsKeys.length > 0) {
       throw new Error(`Unknown props given: ${restPropsKeys.join(", ")}`)
     }
 
-    const props = React.useMemo(() => ({
+    const props = React.useMemo(() => /** @type {ClickOutsideProviderContext} */ ({
       onStartShouldSetResponder: (event) => {
         event.persist()
 
-        const {onStartShouldSetResponder} = this.tt
+        const {onStartShouldSetResponder} = this
 
-        for (const registerID in this.tt.registered) {
-          const {childRef, onPressOutside} = this.tt.registered[registerID]
+        for (const registerID in this.registered) {
+          const {childRef, onPressOutside} = this.registered[registerID]
 
           // if press outside, execute onPressOutside callback
+          // @ts-expect-error
           if (onPressOutside && childRef?.current && !isPressInsideElement(event.target, childRef.current)) {
             onPressOutside()
           }
@@ -37,25 +52,36 @@ const OutsideEyeProvider = React.memo(shapeComponent(class OutsideEyeProvider ex
       }
     }), [])
 
-    const value = React.useMemo(() => ({
+    /** @type {OutsideEyeContextValueType} */
+    const value = React.useMemo(() => /** @type {OutsideEyeContextValueType} */ ({
       clickOutsideProvider: this,
       props
     }), [])
 
     return (
+      // @ts-expect-error
       <OutsideEyeContext.Provider value={value}>
         {children}
       </OutsideEyeContext.Provider>
     )
   }
 
+  /**
+   * @param {string} id
+   * @param {React.RefObject<import("react-native").View>} childRef
+   * @param {() => void} onPressOutside
+   * @returns {void}
+   */
   register(id, childRef, onPressOutside) {
     this.registered[id] = {childRef, onPressOutside}
   }
 
+  /**
+   * @param {string} id
+   */
   unregister(id) {
     delete this.registered[id]
   }
-}))
+}
 
-export default OutsideEyeProvider
+export default React.memo(shapeComponent(OutsideEyeProvider))

@@ -2,6 +2,7 @@
   "extends": "expo-module-scripts/tsconfig.base",
   "compilerOptions": {
     "allowJs": true,
+    "checkJs": true,
     "jsx": "react",
     "outDir": "./build"
   },

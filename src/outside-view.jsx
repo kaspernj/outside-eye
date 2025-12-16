@@ -2,7 +2,12 @@ import React from "react"
 import usePressOutsideProps from "./use-press-outside-props.js"
 import {View} from "react-native"
 
-const ClickOutsideView = React.memo(({children, ...restProps}) => {
+/**
+ * @param {object} props
+ * @param {import("react").ReactNode} props.children
+ * @returns {import("react").JSX.Element}
+ */
+function ClickOutsideView({children, ...restProps}) {
   const clickOutsideProps = usePressOutsideProps()
 
   return (
@@ -10,6 +15,6 @@ const ClickOutsideView = React.memo(({children, ...restProps}) => {
       {children}
     </View>
   )
-})
+}
 
-export default ClickOutsideView
+export default React.memo(ClickOutsideView)

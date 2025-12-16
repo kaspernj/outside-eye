@@ -1,9 +1,14 @@
 import React from "react"
-import useContext from "./use-press-outside-context"
+import usePressOutsideContext from "./use-press-outside-context"
 import UUID from "pure-uuid"
 
+/**
+ * @param {React.RefObject<import("react-native").View>} childRef
+ * @param {() => void} onPressOutside
+ * @returns {void}
+ */
 export default function usePressOutside(childRef, onPressOutside) {
-  const value = useContext()
+  const value = usePressOutsideContext()
   const id = React.useMemo(() => new UUID(4).format(), [])
 
   if (!value) {
@@ -11,12 +16,12 @@ export default function usePressOutside(childRef, onPressOutside) {
   }
 
   React.useMemo(() => {
-    value.clickOutsideProvider.register(id, childRef, onPressOutside)
+    value?.clickOutsideProvider?.register(id, childRef, onPressOutside)
   }, [childRef, onPressOutside])
 
   React.useEffect(() => {
     return () => {
-      value.clickOutsideProvider.unregister(id)
+      value?.clickOutsideProvider?.unregister(id)
     }
   }, [])
 }
