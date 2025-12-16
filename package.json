@@ -35,7 +35,7 @@
     "@types/react": "~19.0.0",
     "eslint-config-expo": "~9.2.0",
     "eslint-plugin-jsdoc": "^61.5.0",
-    "expo": "~53.0.25",
+    "expo": "~54.0.29",
     "expo-module-scripts": "^4.1.9",
     "react-native": "0.79.6"
   },
