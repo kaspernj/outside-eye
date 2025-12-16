@@ -3,3 +3,4 @@ before_script:
 script:
   - npm run typecheck
   - npx expo-doctor
+  - npx expo lint

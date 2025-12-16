@@ -25,7 +25,7 @@ export default function usePressOutsideProps({onStartShouldSetResponder, ...rest
 
       return false
     }
-  }), [])
+  }), []) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!shared.clickOutsideContext) {
     throw new Error("Not inside outside-eye context")

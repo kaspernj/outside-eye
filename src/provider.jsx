@@ -29,7 +29,7 @@ class OutsideEyeProvider extends ShapeComponent {
       throw new Error(`Unknown props given: ${restPropsKeys.join(", ")}`)
     }
 
-    const props = React.useMemo(() => /** @type {ClickOutsideProviderContext} */ ({
+    const props = React.useMemo(() => /** @type {ClickOutsideProviderContext} */ ({ // eslint-disable-line react-hooks/rules-of-hooks
       onStartShouldSetResponder: (event) => {
         event.persist()
 
@@ -53,10 +53,10 @@ class OutsideEyeProvider extends ShapeComponent {
     }), [])
 
     /** @type {OutsideEyeContextValueType} */
-    const value = React.useMemo(() => /** @type {OutsideEyeContextValueType} */ ({
+    const value = React.useMemo(() => /** @type {OutsideEyeContextValueType} */ ({ // eslint-disable-line react-hooks/rules-of-hooks
       clickOutsideProvider: this,
       props
-    }), [])
+    }), []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
       // @ts-expect-error
