@@ -12,7 +12,8 @@
     "prepublishOnly": "expo-module prepublishOnly",
     "expo-module": "expo-module",
     "open:ios": "xed example/ios",
-    "open:android": "open -a \"Android Studio\" example/android"
+    "open:android": "open -a \"Android Studio\" example/android",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "react-native",
@@ -39,6 +40,7 @@
   "peerDependencies": {
     "expo": "*",
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "set-state-compare": ">= 1.0.60"
   }
 }

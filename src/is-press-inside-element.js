@@ -1,7 +1,12 @@
+import {Component} from "react"
 import {Platform} from "react-native"
 
+/**
+ * @param {Component | Element} target
+ * @param {Component | Element} nestedView
+ */
 export default function isPressInsideElement(target, nestedView) {
-  if (Platform.OS == "web") {
+  if (Platform.OS == "web" && target instanceof Element && nestedView instanceof Element) {
     if (target && nestedView && target.isEqualNode(nestedView)) {
       return true
     }
@@ -11,14 +16,17 @@ export default function isPressInsideElement(target, nestedView) {
         return true
       }
     }
-  } else {
+  } else if (target instanceof Component && nestedView instanceof Component) {
     // Does all this work on native?
 
+    // @ts-expect-error
     if (target && nestedView && target._nativeTag === nestedView._nativeTag) { // eslint-disable-line no-underscore-dangle
       return true
     }
 
+    // @ts-expect-error
     if (nestedView._children && nestedView._children.length > 0) { // eslint-disable-line no-underscore-dangle
+      // @ts-expect-error
       for (const child of nestedView._children) { // eslint-disable-line no-underscore-dangle
         if (isPressInsideElement(target, child)) {
           return true
