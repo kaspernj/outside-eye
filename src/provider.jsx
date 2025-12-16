@@ -14,7 +14,7 @@ import React from "react"
  */
 
 class OutsideEyeProvider extends ShapeComponent {
-  /** @type {function | null} */
+  /** @type {((event: import("react-native").GestureResponderEvent) => boolean) | null} */
   onStartShouldSetResponder = null
 
   /** @type {Record<string, any>} */

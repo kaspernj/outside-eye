@@ -4,6 +4,7 @@ import {Platform} from "react-native"
 /**
  * @param {Component | Element} target
  * @param {Component | Element} nestedView
+ * @returns {boolean}
  */
 export default function isPressInsideElement(target, nestedView) {
   if (Platform.OS === "web" && target instanceof Element && nestedView instanceof Element) {
