@@ -17,11 +17,11 @@ export default function usePressOutside(childRef, onPressOutside) {
 
   React.useMemo(() => {
     value?.clickOutsideProvider?.register(id, childRef, onPressOutside)
-  }, [childRef, onPressOutside])
+  }, [childRef, id, onPressOutside, value?.clickOutsideProvider])
 
   React.useEffect(() => {
     return () => {
       value?.clickOutsideProvider?.unregister(id)
     }
-  }, [])
+  }, [childRef, id, onPressOutside, value?.clickOutsideProvider])
 }

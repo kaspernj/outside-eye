@@ -1,5 +1,8 @@
+before_install:
+  - sudo apt update && sudo apt install -y rsync
 before_script:
   - npm install
 script:
   - npm run typecheck
+  - npx expo lint
   - npx expo-doctor

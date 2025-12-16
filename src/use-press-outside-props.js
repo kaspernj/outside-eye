@@ -4,6 +4,7 @@ import usePressOutsideContext from "./use-press-outside-context.js"
 /**
  * @param {object} [args]
  * @param {import("./types.js").onStartShouldSetResponderType} [args.onStartShouldSetResponder]
+ * @returns {Record<string, any>}
  */
 export default function usePressOutsideProps({onStartShouldSetResponder, ...restProps} = {}) {
   const shared = React.useMemo(() => /** @type {{onStartShouldSetResponder: import("./types.js").onStartShouldSetResponderType | undefined, clickOutsideContext: import("./context.js").PressOutsideContext | null}} */ ({}), [])
@@ -25,7 +26,7 @@ export default function usePressOutsideProps({onStartShouldSetResponder, ...rest
 
       return false
     }
-  }), [])
+  }), []) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!shared.clickOutsideContext) {
     throw new Error("Not inside outside-eye context")
