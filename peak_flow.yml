@@ -4,5 +4,5 @@ before_script:
   - npm install
 script:
   - npm run typecheck
-  - npx expo lint
   - npx expo-doctor
+  - npx expo lint
