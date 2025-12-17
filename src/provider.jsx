@@ -1,5 +1,4 @@
-// @ts-expect-error
-import {shapeComponent, ShapeComponent} from "set-state-compare/src/shape-component.js"
+import {shapeComponent, ShapeComponent} from "set-state-compare/build/shape-component.js"
 import isPressInsideElement from "./is-press-inside-element"
 import OutsideEyeContext from "./context.js"
 import React from "react"
@@ -21,7 +20,6 @@ class OutsideEyeProvider extends ShapeComponent {
   registered = {}
 
   render() {
-    // @ts-expect-error
     const {children, ...restProps} = this.props
     const restPropsKeys = Object.keys(restProps)
 
