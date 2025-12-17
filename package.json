@@ -3,6 +3,8 @@
   "version": "0.1.4",
   "description": "Detect clicks outside certain elements.",
   "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": ["build/**"],
   "scripts": {
     "build": "expo-module build",
     "clean": "expo-module clean",
