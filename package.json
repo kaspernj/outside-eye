@@ -43,6 +43,6 @@
     "expo": "*",
     "react": "*",
     "react-native": "*",
-    "set-state-compare": ">= 1.0.60"
+    "set-state-compare": ">= 1.0.61"
   }
 }
