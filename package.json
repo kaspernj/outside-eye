@@ -30,7 +30,7 @@
   "license": "MIT",
   "homepage": "https://github.com/kaspernj/outside-eye#readme",
   "dependencies": {
-    "pure-uuid": "^1.8.1",
+    "pure-uuid": "^2.0.0",
     "react": "*"
   },
   "devDependencies": {
