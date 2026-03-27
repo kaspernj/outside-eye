@@ -13,6 +13,9 @@ import React from "react"
  */
 
 class OutsideEyeProvider extends ShapeComponent {
+  /** @type {Record<string, {ref: React.RefObject<import("react-native").View>}>} */
+  blockers = {}
+
   /** @type {((event: import("react-native").GestureResponderEvent) => boolean) | null} */
   onStartShouldSetResponder = null
 
@@ -32,6 +35,20 @@ class OutsideEyeProvider extends ShapeComponent {
         event.persist()
 
         const {onStartShouldSetResponder} = this
+
+        // If the press is inside a blocker (e.g. a modal overlay), suppress all onPressOutside callbacks
+        for (const blockerID in this.blockers) {
+          const {ref} = this.blockers[blockerID]
+
+          // @ts-expect-error
+          if (ref?.current && isPressInsideElement(event.target, ref.current)) {
+            if (onStartShouldSetResponder) {
+              return onStartShouldSetResponder(event)
+            }
+
+            return false
+          }
+        }
 
         for (const registerID in this.registered) {
           const {childRef, onPressOutside} = this.registered[registerID]
@@ -78,9 +95,26 @@ class OutsideEyeProvider extends ShapeComponent {
 
   /**
    * @param {string} id
+   * @param {React.RefObject<import("react-native").View>} ref
+   * @returns {void}
+   */
+  registerBlocker(id, ref) {
+    this.blockers[id] = {ref}
+  }
+
+  /**
+   * @param {string} id
    */
   unregister(id) {
     delete this.registered[id]
+  }
+
+  /**
+   * @param {string} id
+   * @returns {void}
+   */
+  unregisterBlocker(id) {
+    delete this.blockers[id]
   }
 }
 
