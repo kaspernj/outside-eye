@@ -1,5 +1,6 @@
 {
   "name": "outside-eye",
+  "type": "module",
   "version": "0.1.5",
   "description": "Detect clicks outside certain elements.",
   "main": "build/index.js",
@@ -16,6 +17,7 @@
     "prepublishOnly": "expo-module prepublishOnly",
     "open:ios": "xed example/ios",
     "open:android": "open -a \"Android Studio\" example/android",
+    "release:patch": "node scripts/release-patch.js",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [
