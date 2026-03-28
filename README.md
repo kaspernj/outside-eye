@@ -56,3 +56,30 @@ export default () => {
   )
 }
 ```
+
+## Blockers
+
+Use `usePressOutsideBlocker` to register a full-screen element (such as a modal overlay) as a blocker. While a blocker is mounted, all `onPressOutside` callbacks are suppressed for clicks inside the blocker element. This prevents pop menus and other registered elements from closing when clicking inside a modal.
+
+```jsx
+import usePressOutsideBlocker from "outside-eye/build/use-press-outside-blocker"
+import usePressOutsideProps from "outside-eye/build/use-press-outside-props"
+
+const Modal = ({children, onRequestClose}) => {
+  const overlayRef = useRef()
+  const pressOutsideProps = usePressOutsideProps()
+
+  usePressOutsideBlocker(overlayRef)
+
+  return (
+    <View ref={overlayRef} style={fullScreenOverlayStyle} {...pressOutsideProps}>
+      <Pressable onPress={onRequestClose} style={backdropStyle} />
+      <View style={contentStyle}>
+        {children}
+      </View>
+    </View>
+  )
+}
+```
+
+When the modal is open, clicking inside it will not trigger `onPressOutside` on other registered elements (like a pop menu that opened the modal). The modal handles its own backdrop dismiss via a `Pressable`.

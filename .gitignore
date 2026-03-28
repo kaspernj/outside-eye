@@ -54,7 +54,8 @@ yarn-debug.log
 yarn-error.log
 
 # Expo
-.expo/*
+.expo/
 
-# Custom
+# Generated
+.eslintrc.js
 build
