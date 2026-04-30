@@ -1,4 +1,5 @@
 import React from "react"
+import useNow from "set-state-compare/build/use-now.js"
 import usePressOutsideContext from "./use-press-outside-context"
 import UUID from "pure-uuid"
 
@@ -9,19 +10,31 @@ import UUID from "pure-uuid"
  */
 export default function usePressOutside(childRef, onPressOutside) {
   const value = usePressOutsideContext()
-  const id = React.useMemo(() => new UUID(4).format(), [])
+  const registrationRef = React.useRef(/** @type {{id: string, provider: import("./provider.jsx").OutsideEyeContextValueType["clickOutsideProvider"]} | null} */ (null))
 
   if (!value) {
     throw new Error("Not inside click outside context")
   }
 
-  React.useMemo(() => {
-    value?.clickOutsideProvider?.register(id, childRef, onPressOutside)
-  }, [childRef, id, onPressOutside, value?.clickOutsideProvider])
+  const {clickOutsideProvider} = value
+
+  useNow(() => {
+    if (registrationRef.current) {
+      registrationRef.current.provider.unregister(registrationRef.current.id)
+    }
+
+    const id = new UUID(4).format()
+
+    clickOutsideProvider.register(id, childRef, onPressOutside)
+    registrationRef.current = {id, provider: clickOutsideProvider}
+  }, [childRef, clickOutsideProvider, onPressOutside])
 
   React.useEffect(() => {
     return () => {
-      value?.clickOutsideProvider?.unregister(id)
+      if (registrationRef.current) {
+        registrationRef.current.provider.unregister(registrationRef.current.id)
+        registrationRef.current = null
+      }
     }
-  }, [childRef, id, onPressOutside, value?.clickOutsideProvider])
+  }, [])
 }
