@@ -1,7 +1,7 @@
 import {execSync} from "node:child_process"
 import fs from "node:fs"
 import path from "node:path"
-import {fileURLToPath} from "node:url" // eslint-disable-line sort-imports
+import {fileURLToPath} from "node:url"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -17,6 +17,13 @@ class ReleasePatch {
 
   runQuiet(command, options = {}) {
     return execSync(command, {encoding: "utf8", cwd: this.repoRoot, ...options}).trim()
+  }
+
+  nonInteractiveEnv() {
+    return {
+      ...process.env,
+      EXPO_NONINTERACTIVE: "1"
+    }
   }
 
   requireCleanGit() {
@@ -41,7 +48,7 @@ class ReleasePatch {
   }
 
   build() {
-    this.run("npm run build")
+    this.run("npm run build", {env: this.nonInteractiveEnv()})
   }
 
   readVersion() {
@@ -82,7 +89,7 @@ class ReleasePatch {
   }
 
   publish() {
-    this.run("npm publish")
+    this.run("npm publish", {env: this.nonInteractiveEnv()})
   }
 
   execute() {
@@ -104,5 +111,4 @@ class ReleasePatch {
   }
 }
 
-// eslint-disable-next-line jest/require-hook
 new ReleasePatch().execute()
