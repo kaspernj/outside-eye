@@ -1,0 +1,50 @@
+builds:
+  javascript:
+    name: JavaScript
+    dependency_roots:
+      - path: .
+    paths:
+      - src/**
+      - package/**
+      - example/**
+      - "*.cjs"
+      - "*.js"
+      - "*.jsx"
+      - "*.ts"
+      - "*.tsx"
+      - package.json
+      - package-lock.json
+      - tsconfig.json
+      - eslint.config.cjs
+      - .github/**
+      - expo-module.config.json
+      - tensorbuzz.yml
+      - peak_flow.yml
+      - "!example/android/**"
+      - "!example/ios/**"
+      - "!package/**/*.md"
+    script:
+      - npm run typecheck
+      - npx expo lint
+      - npx expo-doctor
+  native:
+    name: Native
+    dependency_roots:
+      - path: .
+    paths:
+      - android/**
+      - ios/**
+      - example/android/**
+      - example/ios/**
+      - package.json
+      - package-lock.json
+      - tsconfig.json
+      - eslint.config.cjs
+      - .github/**
+      - expo-module.config.json
+      - tensorbuzz.yml
+      - peak_flow.yml
+    script:
+      - npm run typecheck
+      - npx expo lint
+      - npx expo-doctor
