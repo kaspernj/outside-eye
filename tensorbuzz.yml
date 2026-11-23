@@ -6,7 +6,7 @@ builds:
     dependency_roots:
       - path: .
     paths:
-      - src/**
+      - 123
       - package/**
       - example/**
       - "*.cjs"
