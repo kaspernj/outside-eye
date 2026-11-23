@@ -1,6 +1,8 @@
 builds:
   javascript:
     name: JavaScript
+    before_install:
+      - sudo apt update && sudo apt install -y rsync
     dependency_roots:
       - path: .
     paths:
@@ -29,6 +31,8 @@ builds:
       - npx expo-doctor
   native:
     name: Native
+    before_install:
+      - sudo apt update && sudo apt install -y rsync
     dependency_roots:
       - path: .
     paths:
